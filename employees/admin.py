@@ -1,3 +1,6 @@
 from django.contrib import admin
+from employees.models import Face, Attendance, Staff
 
-# Register your models here.
+admin.site.register(Face)
+admin.site.register(Attendance)
+admin.site.register(Staff)
