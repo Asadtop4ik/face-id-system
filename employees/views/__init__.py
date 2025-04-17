@@ -1,1 +1,2 @@
-from .main import FaceViewSet, StaffViewSet, AttendanceViewSet
+from .main import FaceViewSet, AttendanceViewSet
+from .staff_login import StaffLoginView

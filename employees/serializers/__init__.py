@@ -1,2 +1,2 @@
-from .main import FaceSerializer, StaffSerializer, AttendanceSerializer
+from .main import FaceSerializer, StaffLoginSerializer, AttendanceSerializer
 
