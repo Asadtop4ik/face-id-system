@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 
 User = get_user_model()
 
+
 class CustomUserAdmin(UserAdmin):
     model = User
     list_display = ['username', 'first_name', 'last_name', 'position', 'department', 'is_active']
@@ -14,12 +15,28 @@ class CustomUserAdmin(UserAdmin):
         ('Personal Info', {'fields': ('first_name', 'last_name', 'birth_date', 'gender', 'phone_number', 'avatar', 'face_image')}),
         ('Work Info', {'fields': ('position', 'group_name', 'department', 'salary', 'start_work_at', 'end_work_at')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Face', {'fields': ('face',)}),  # Updated from face_id to face
+        ('Face', {'fields': ('face',)}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'first_name', 'last_name', 'position', 'department'),
+            'fields': ('username', 'password1', 'password2'),
+        }),
+        ('Personal Info', {
+            'classes': ('wide',),
+            'fields': ('first_name', 'last_name', 'birth_date', 'gender', 'phone_number', 'avatar', 'face_image'),
+        }),
+        ('Work Info', {
+            'classes': ('wide',),
+            'fields': ('position', 'group_name', 'department', 'salary', 'start_work_at', 'end_work_at'),
+        }),
+        ('Permissions', {
+            'classes': ('wide',),
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+        ('Face', {
+            'classes': ('wide',),
+            'fields': ('face',),
         }),
     )
     readonly_fields = ['created_at', 'updated_at', 'avatar_preview']
@@ -35,5 +52,6 @@ class CustomUserAdmin(UserAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         return self.readonly_fields
+
 
 admin.site.register(User, CustomUserAdmin)
