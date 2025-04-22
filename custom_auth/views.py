@@ -2,7 +2,8 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from employees.serializers import CustomTokenObtainPairSerializer, UserSerializer
+from .serializers import CustomTokenObtainPairSerializer, UserSerializer
+
 
 class CustomTokenObtainPairView(generics.GenericAPIView):
     serializer_class = CustomTokenObtainPairSerializer
@@ -21,3 +22,4 @@ class ProfileUserView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-k2=3(cgq0tam*b=jy=io)05)pddt)c63+v_y0too@gkzwc!eqo
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'custom_auth.User'
 
 # Application definition
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # local
     'employees',
+    'custom_auth',
 ]
 
 MIDDLEWARE = [
@@ -176,3 +177,6 @@ SPECTACULAR_SETTINGS = {
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

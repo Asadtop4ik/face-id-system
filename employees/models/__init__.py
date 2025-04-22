@@ -1,1 +1,1 @@
-from .main import Face, Staff, Attendance
+from .main import Face, Attendance
