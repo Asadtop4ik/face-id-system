@@ -29,3 +29,30 @@ class Attendance(models.Model):
 
     def __str__(self):
         return f"{self.staff.first_name} {self.staff.last_name}"
+
+
+class Company(models.Model):
+    name = models.CharField(max_length=255)
+    lat = models.CharField(max_length=255)
+    long = models.CharField(max_length=255)
+    radius = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Schedule(models.Model):
+    staff = models.ForeignKey(User, on_delete=models.CASCADE)
+    day = models.CharField(max_length=255)
+    start_work = models.CharField(max_length=255)
+    lunch_start = models.CharField(max_length=255)
+    lunch_end = models.CharField(max_length=255)
+    end_work = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.staff.first_name} {self.staff.last_name}"
+
+

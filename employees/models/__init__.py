@@ -1,1 +1,1 @@
-from .main import Face, Attendance
+from .main import Face, Attendance, Company, Schedule
