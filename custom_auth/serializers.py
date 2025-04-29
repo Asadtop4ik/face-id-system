@@ -2,9 +2,15 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
-from employees.models import Company, Schedule
+from employees.models import Company, Schedule, Face
 
 User = get_user_model()
+
+# Serializer for Face model
+class FaceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Face
+        fields = "__all__"  # Adjust to specific fields, e.g., ['id', 'image', 'encoding']
 
 # Serializer for Company model
 class CompanySerializer(serializers.ModelSerializer):
@@ -20,10 +26,17 @@ class ScheduleSerializer(serializers.ModelSerializer):
 
 # Serializer for User model
 class UserSerializer(serializers.ModelSerializer):
+    face = FaceSerializer(read_only=True)  # Nest FaceSerializer for full object
+
     class Meta:
         model = User
-        fields = '__all__' # Explicitly list fields to avoid issues
-        read_only_fields = ("id",)
+        fields = [
+            'id', 'username', 'first_name', 'last_name', 'birth_date', 'position',
+            'group_name', 'department', 'gender', 'phone_number', 'start_work_at',
+            'end_work_at', 'avatar', 'face_image', 'salary', 'created_at', 'updated_at',
+            'is_active', 'is_staff', 'is_superuser', 'face', 'last_login', 'groups', 'user_permissions'
+        ]
+        read_only_fields = ('id', 'created_at', 'updated_at', 'last_login')
 
 class CustomTokenObtainPairSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -52,7 +65,6 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
         }
 
         if user.is_staff:
-            # Serialize non-staff users for all_staff
             all_staffs = UserSerializer(User.objects.filter(is_staff=False), many=True).data
             response_data["all_staffs"] = all_staffs
 
