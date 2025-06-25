@@ -6,27 +6,24 @@ from employees.models import Company, Schedule, Face
 
 User = get_user_model()
 
-# Serializer for Face model
+
 class FaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Face
-        fields = "__all__"  # Adjust to specific fields, e.g., ['id', 'image', 'encoding']
+        fields = "__all__"
 
-# Serializer for Company model
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = "__all__"  # Adjust fields as needed
+        fields = "__all__"
 
-# Serializer for Schedule model
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
-        fields = "__all__"  # Adjust fields as needed
+        fields = "__all__"
 
-# Serializer for User model
 class UserSerializer(serializers.ModelSerializer):
-    face = FaceSerializer(read_only=True)  # Nest FaceSerializer for full object
+    face = FaceSerializer(read_only=True)
 
     class Meta:
         model = User
@@ -52,7 +49,6 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
 
         refresh = RefreshToken.for_user(user)
 
-        # Serialize QuerySets
         company_data = CompanySerializer(Company.objects.all(), many=True).data
         schedule_data = ScheduleSerializer(Schedule.objects.all(), many=True).data
 
